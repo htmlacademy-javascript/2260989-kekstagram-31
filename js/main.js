@@ -92,7 +92,7 @@ function createPhotoArray() {
     //Создаем объект для перемещения в массив photoArray
     let photoObject = {
       id: id,
-      url: `photos/${getRandomNumb(1, 14)}.jpg`,
+      url: `photos/${getRandomNumber(1, 14)}.jpg`,
       message: createRandomDescription(),
       likes: getRandomNumber(15, 200),
       comments: comments
