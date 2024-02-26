@@ -101,3 +101,5 @@ function createPhotoArray() {
   }
   return photoArray;
 }
+// Создание массива из 25 сгенерированных объектов
+createPhotoArray();
