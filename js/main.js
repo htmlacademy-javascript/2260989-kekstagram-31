@@ -101,5 +101,3 @@ function createPhotoArray() {
   }
   return photoArray;
 }
-// Создание массива из 25 сгенерированных объектов
-const photos = createPhotoArray();
