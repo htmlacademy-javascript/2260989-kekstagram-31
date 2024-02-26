@@ -5,12 +5,12 @@ const commentsList = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-  
+
 // Список имён пользователей
 const nameList = [
   'Артем', 'Дмитрий', 'Михаил', 'Андрей', 'Ринат', 'Виталий', 'Никита', 'Федор', 'Мария', 'Оксана', 'Елена', 'Ольга', 'Дарья', 'Альбина'
 ];
-  
+
 // Список описаний фото
 const descriptionList = [
   'На фото изображен красивый закат над морем.',
@@ -39,28 +39,28 @@ const descriptionList = [
   'Молодые любуется на мост поверх реки.',
   'Берег океана усыпан ракушками и пены.',
 ];
-  
+
 // Функция для генерации случайного числа в диапазоне от min до max
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-  
+
 // Функция для создания случайного комментария
 function createRandomComment() {
   return commentsList[Math.floor(Math.random() * commentsList.length)];
 }
-  
+
 // Функция для случайного выбора комментатора
 function createRandomName() {
   return nameList[Math.floor(Math.random() * nameList.length)];
 }
-  
+
 //Функция для создания случайного описания фото
 function createRandomDescription() {
   return descriptionList[Math.floor(Math.random() * descriptionList.length)];
 }
-  
-// Функция для создания объекта комментария (comments) 
+
+// Функция для создания объекта комментария (comments)
 function createComment() {
   return {
     id: getRandomNumber(1, 500),
@@ -69,12 +69,12 @@ function createComment() {
     name: createRandomName()
   };
 }
-  
+
 // Функция для создания массива из 25 сгенерированных объектов
 function createPhotoArray() {
   // Создаем пустые массивы для заполнения данными
-  let photoArray = [];
-  let usedIds = [];
+  const photoArray = [];
+  const usedIds = [];
   // Создаем цикл на 25 итераций (25 объектов в массиве)
   for (let i = 1; i <= 25; i++) {
     // Заполняем id неповторяющимися значениями в диапазоне 1-25
@@ -84,13 +84,13 @@ function createPhotoArray() {
     }
     usedIds.push(id);
     // Создаем пустой массив для заполнения ранее созданными объектами
-    let comments = [];
+    const comments = [];
     const numComments = getRandomNumber(0, 30); // Определяем число комментариев к фото
     for (let j = 0; j < numComments; j++) {
       comments.push(createComment());
     }
     //Создаем объект для перемещения в массив photoArray
-    let photoObject = {
+    const photoObject = {
       id: id,
       url: `photos/${getRandomNumber(1, 14)}.jpg`,
       message: createRandomDescription(),
@@ -102,5 +102,4 @@ function createPhotoArray() {
   return photoArray;
 }
 // Создание массива из 25 сгенерированных объектов
-let photos = createPhotoArray();
-console.log(photos);
+const photos = createPhotoArray();
