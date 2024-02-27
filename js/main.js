@@ -83,17 +83,17 @@ function getRandomNumber(min, max) {
 
 // Функция для создания случайного комментария
 function createRandomComment() {
-  return COMMENTS[getRandomNumber(0, COMMENTS.length-1)];
+  return COMMENTS[getRandomNumber(0, COMMENTS.length - 1)];
 }
 
 // Функция для случайного выбора комментатора
 function createRandomName() {
-  return NAMES[getRandomNumber(0, NAMES.length-1)];
+  return NAMES[getRandomNumber(0, NAMES.length - 1)];
 }
 
 //Функция для создания случайного описания фото
 function createRandomDescription() {
-  return DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length-1)];
+  return DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)];
 }
 
 // Функция для создания объекта комментария (comments)
@@ -138,4 +138,4 @@ function createPhotoArray() {
   return photoArray;
 }
 // Создание массива из 25 сгенерированных объектов
-console.log(createPhotoArray());
+createPhotoArray();
