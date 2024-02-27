@@ -1,5 +1,5 @@
 // Список предложений для комментариев
-const commentsList = [
+const COMMENTS = [
   'Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
@@ -7,12 +7,12 @@ const commentsList = [
 ];
 
 // Список имён пользователей
-const nameList = [
+const NAMES = [
   'Артем', 'Дмитрий', 'Михаил', 'Андрей', 'Ринат', 'Виталий', 'Никита', 'Федор', 'Мария', 'Оксана', 'Елена', 'Ольга', 'Дарья', 'Альбина'
 ];
 
 // Список описаний фото
-const descriptionList = [
+const DESCRIPTIONS = [
   'На фото изображен красивый закат над морем.',
   'Зеленая поляна усеяна яркими цветами.',
   'Лесной ручей бежит среди высоких деревьев.',
@@ -40,6 +40,42 @@ const descriptionList = [
   'Берег океана усыпан ракушками и пены.',
 ];
 
+// Количество лайков
+const LIKES = {
+  MIN: 15,
+  MAX: 200
+};
+
+// Количество фото
+const PHOTOS = {
+  MIN: 1,
+  MAX: 25
+};
+
+// Количество комментариев
+const COMMENTS_RANGE = {
+  MIN: 0,
+  MAX: 30
+};
+
+// Количество фото аватаров
+const PHOTOS_AVATAR = {
+  MIN: 1,
+  MAX: 6
+};
+
+// Диапазон номеров id
+const ID_RANGE = {
+  MIN: 1,
+  MAX: 500
+};
+
+// Диапазон объектов массива
+const ARRAY_RANGE = {
+  MIN: 1,
+  MAX: 25
+};
+
 // Функция для генерации случайного числа в диапазоне от min до max
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -47,24 +83,24 @@ function getRandomNumber(min, max) {
 
 // Функция для создания случайного комментария
 function createRandomComment() {
-  return commentsList[Math.floor(Math.random() * commentsList.length)];
+  return COMMENTS[getRandomNumber(0, COMMENTS.length-1)];
 }
 
 // Функция для случайного выбора комментатора
 function createRandomName() {
-  return nameList[Math.floor(Math.random() * nameList.length)];
+  return NAMES[getRandomNumber(0, NAMES.length-1)];
 }
 
 //Функция для создания случайного описания фото
 function createRandomDescription() {
-  return descriptionList[Math.floor(Math.random() * descriptionList.length)];
+  return DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length-1)];
 }
 
 // Функция для создания объекта комментария (comments)
 function createComment() {
   return {
-    id: getRandomNumber(1, 500),
-    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+    id: getRandomNumber(ID_RANGE.MIN, ID_RANGE.MAX),
+    avatar: `img/avatar-${getRandomNumber(PHOTOS_AVATAR.MIN, PHOTOS_AVATAR.MAX)}.svg`,
     message: createRandomComment(),
     name: createRandomName()
   };
@@ -76,30 +112,30 @@ function createPhotoArray() {
   const photoArray = [];
   const usedIds = [];
   // Создаем цикл на 25 итераций (25 объектов в массиве)
-  for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= ARRAY_RANGE.MAX; i++) {
     // Заполняем id неповторяющимися значениями в диапазоне 1-25
-    let id = getRandomNumber(1, 25);
+    let id = getRandomNumber(ARRAY_RANGE.MIN, ARRAY_RANGE.MAX);
     while (usedIds.includes(id)) {	//Проверка на повторение id
-      id = getRandomNumber(1, 25);
+      id = getRandomNumber(ARRAY_RANGE.MIN, ARRAY_RANGE.MAX);
     }
     usedIds.push(id);
     // Создаем пустой массив для заполнения ранее созданными объектами
-    const comments = [];
-    const numComments = getRandomNumber(0, 30); // Определяем число комментариев к фото
+    const comment = [];
+    const numComments = getRandomNumber(COMMENTS_RANGE.MIN, COMMENTS_RANGE.MAX); // Определяем число комментариев к фото
     for (let j = 0; j < numComments; j++) {
-      comments.push(createComment());
+      comment.push(createComment());
     }
     //Создаем объект для перемещения в массив photoArray
     const photoObject = {
       id: id,
-      url: `photos/${getRandomNumber(1, 14)}.jpg`,
+      url: `photos/${getRandomNumber(PHOTOS.MIN, PHOTOS.MAX)}.jpg`,
       message: createRandomDescription(),
-      likes: getRandomNumber(15, 200),
-      comments: comments
+      likes: getRandomNumber(LIKES.MIN, LIKES.MAX),
+      comments: comment
     };
     photoArray.push(photoObject);
   }
   return photoArray;
 }
 // Создание массива из 25 сгенерированных объектов
-createPhotoArray();
+console.log(createPhotoArray());
