@@ -1,2 +1,2 @@
 import { createPhotoArray } from './data.js';
-createPhotoArray();
+console.log(createPhotoArray());
