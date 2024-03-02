@@ -151,4 +151,4 @@ function createPhotoArray() {
   return photoArray;
 }
 
-export { createPhotoArray };
+export { PhotoArray };
