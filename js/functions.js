@@ -1,4 +1,4 @@
-// 1-ое задание
+// 1-ое задание (Проверка на количество символов)
 function result(string, maxSymbols) {
   //Добавляем условие через тернарный оператор
   return string.length <= maxSymbols ? "true" : "false";
