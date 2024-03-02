@@ -151,6 +151,4 @@ function createPhotoArray() {
   return photoArray;
 }
 
-const createPhoto = createPhotoArray();
-
-export { createPhoto };
+export { photoArray };
