@@ -1,2 +1,2 @@
-import { PhotoArray } from './data.js';
-console.log(PhotoArray);
+import { createPhoto } from './data.js';
+console.log(createPhoto);
