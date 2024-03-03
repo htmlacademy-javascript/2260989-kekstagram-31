@@ -33,7 +33,7 @@ function checkMeetingTime(startWork, endWork, startMeeting, meetingDuration) {
   } else {
     // Прибавим продолжительность встречи к времени начала встречи
     meetingStart.setMinutes(meetingStart.getMinutes() + meetingDuration);
-  
+
     // Проверяем попадает ли время встречи в рабочее время
     return meetingStart >= workStart && meetingStart <= workEnd;
   }
