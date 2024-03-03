@@ -29,13 +29,13 @@ function checkMeetingTime(startWork, endWork, startMeeting, meetingDuration) {
 
   // Если встреча начинается до начала рабочего дня - false
   if (meetingStart < workStart) {
-    return false
+    return false;
   } else {
-  // Прибавим продолжительность встречи к времени начала встречи
-  meetingStart.setMinutes(meetingStart.getMinutes() + meetingDuration);
- 
-  // Проверяем попадает ли время встречи в рабочее время
-  return meetingStart >= workStart && meetingStart <= workEnd;
+    // Прибавим продолжительность встречи к времени начала встречи
+    meetingStart.setMinutes(meetingStart.getMinutes() + meetingDuration);
+  
+    // Проверяем попадает ли время встречи в рабочее время
+    return meetingStart >= workStart && meetingStart <= workEnd;
   }
 }
 
