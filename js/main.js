@@ -1,1 +1,3 @@
-import { photoArray } from './data.js';
+import './functions.js';
+import { createPhotoArray } from './data.js';
+createPhotoArray();
