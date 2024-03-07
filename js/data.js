@@ -142,7 +142,7 @@ function createPhotoArray() {
     const photoObject = {
       id: id,
       url: `photos/${getRandomNumber(PHOTOS.MIN, PHOTOS.MAX)}.jpg`,
-      message: createRandomDescription(),
+      description: createRandomDescription(),
       likes: getRandomNumber(LIKES.MIN, LIKES.MAX),
       comments: comment,
     };
