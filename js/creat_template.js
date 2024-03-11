@@ -1,9 +1,9 @@
-import { createPhotoArray } from './data.js';
+import { photos } from './data.js';
 
 const pictures = document.querySelector('.pictures'); // Нашли блок pictures в который будут отрисованы элементы
 const templatePicture = document.querySelector('#picture').content.querySelector('.picture'); // Нашли шаблон
 
-const createTemplates = createPhotoArray();
+const createTemplates = photos;
 const pictureListFragment = document.createDocumentFragment(); // Создаем пустой контейнер
 
 // Функция создания DOM-элементов и заполнения их данными

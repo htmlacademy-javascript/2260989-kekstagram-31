@@ -152,4 +152,5 @@ function createPhotoArray() {
   return photoArray;
 }
 
-export { createPhotoArray };
+const photos = createPhotoArray();
+export { photos };
