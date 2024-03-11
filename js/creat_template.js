@@ -1,20 +1,28 @@
 import { photos } from './data.js';
+import { bigPhotoOpen } from './big-picture.js';
 
 const pictures = document.querySelector('.pictures'); // Нашли блок pictures в который будут отрисованы элементы
 const templatePicture = document.querySelector('#picture').content.querySelector('.picture'); // Нашли шаблон
 
-const createTemplates = photos;
 const pictureListFragment = document.createDocumentFragment(); // Создаем пустой контейнер
 
 // Функция создания DOM-элементов и заполнения их данными
-createTemplates.forEach(({url, description, likes, comments}) => {
+const createTemplate = (photo) => {
   const photoElement = templatePicture.cloneNode(true); //Делаем копию шаблона
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__img').alt = description;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photoElement.querySelector('.picture__comments').textContent = comments.length;
+  photoElement.querySelector('.picture__img').src = photo.url;
+  photoElement.querySelector('.picture__img').alt = photo.description;
+  photoElement.querySelector('.picture__likes').textContent = photo.likes;
+  photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
 
-  pictureListFragment.appendChild(photoElement);
-});
+  bigPhotoOpen(photoElement, photo);
+  return photoElement;
+};
 
-pictures.appendChild(pictureListFragment);
+const createTemplates = () => {
+  photos.forEach((photo) => {
+    pictureListFragment.appendChild(createTemplate(photo));
+  });
+  pictures.appendChild(pictureListFragment);
+};
+
+createTemplates();
