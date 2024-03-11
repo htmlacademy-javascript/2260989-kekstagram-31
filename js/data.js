@@ -118,6 +118,7 @@ function createComment() {
   };
 }
 
+
 // Функция для создания массива из 25 сгенерированных объектов
 function createPhotoArray() {
   // Создаем пустые массивы для заполнения данными
@@ -142,7 +143,7 @@ function createPhotoArray() {
     const photoObject = {
       id: id,
       url: `photos/${getRandomNumber(PHOTOS.MIN, PHOTOS.MAX)}.jpg`,
-      message: createRandomDescription(),
+      description: createRandomDescription(),
       likes: getRandomNumber(LIKES.MIN, LIKES.MAX),
       comments: comment,
     };
@@ -151,4 +152,5 @@ function createPhotoArray() {
   return photoArray;
 }
 
-export { createPhotoArray };
+const photos = createPhotoArray();
+export { photos };
