@@ -1,5 +1,5 @@
 import { photos } from './data.js';
-import { bigPhotoOpen } from './big-picture.js';
+import { onPictureOpen } from './big-picture.js';
 
 const pictures = document.querySelector('.pictures'); // Нашли блок pictures в который будут отрисованы элементы
 const templatePicture = document.querySelector('#picture').content.querySelector('.picture'); // Нашли шаблон
@@ -14,7 +14,7 @@ const createTemplate = (photo) => {
   photoElement.querySelector('.picture__likes').textContent = photo.likes;
   photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
 
-  bigPhotoOpen(photoElement, photo);
+  onPictureOpen(photoElement, photo);
   return photoElement;
 };
 
