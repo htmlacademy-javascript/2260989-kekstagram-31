@@ -45,3 +45,24 @@ checkMeetingTime('08:00', '14:30', '14:00', 90);
 checkMeetingTime('14:00', '17:30', '08:0', 90);
 checkMeetingTime('8:00', '17:30', '08:00', 900);
 checkMeetingTime('7:00', '19:00', '08:00', 180); //Встреча начинается раньше начала рабочего дня
+
+const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
+  const num1 = num % 10;
+  const num2 = num % 100;
+
+  if(num2 === 11 || num2 === 12 || num2 === 13 || num2 === 14) {
+    return (genitivePlural);
+  } else if(num1 >= 2 && num1 <= 4) {
+    return (genitiveSingular);
+  } else if(num1 === 1) {
+    return (nominative);
+  } else {
+    return (genitivePlural);
+  }
+};
+
+
+numDecline(38, 'рубль', 'рубля', 'рублей');
+numDecline(220, 'рубль', 'рубля', 'рублей');
+numDecline(12, 'гость', 'гостя', 'гостей');
+numDecline(121, 'рубль', 'рубля', 'рублей');
