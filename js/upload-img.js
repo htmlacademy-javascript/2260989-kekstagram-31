@@ -1,4 +1,4 @@
-import { resetScale } from "./scale";
+import { resetScale } from './scale';
 
 const MAX_HASHTAG = 5; // Допустимое количество хэштегов
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i; // Валидные символы
@@ -8,35 +8,35 @@ const FILE_TYPES = ["jpg", "png", "jpeg"]; // Поддерживаемые фо�
 // Добавляем объект для вывода сообщений об ошибках при валидации
 const ErrorText = {
   INVALID_COUNT: `Допустимо максимум ${MAX_HASHTAG} хэштегов`,
-  NOT_UNIQUE: "Хэштеги должны быть уникальными!",
-  INVALID_PATTERN: "Неправильный хэштег!",
+  NOT_UNIQUE: 'Хэштеги должны быть уникальными!',
+  INVALID_PATTERN: 'Неправильный хэштег!',
 };
 
-const bodyElement = document.querySelector("body");
-const formElement = document.querySelector(".img-upload__form");
-const overlayElement = formElement.querySelector(".img-upload__overlay");
-const cancelButtonElement = formElement.querySelector(".img-upload__cancel");
-const fileFieldElement = formElement.querySelector(".img-upload__input");
-const hashtagFieldElement = formElement.querySelector(".text__hashtags");
-const commentFieldElement = formElement.querySelector(".text__description");
+const bodyElement = document.querySelector('body');
+const formElement = document.querySelector('.img-upload__form');
+const overlayElement = formElement.querySelector('.img-upload__overlay');
+const cancelButtonElement = formElement.querySelector('.img-upload__cancel');
+const fileFieldElement = formElement.querySelector('.img-upload__input');
+const hashtagFieldElement = formElement.querySelector('.text__hashtags');
+const commentFieldElement = formElement.querySelector('.text__description');
 const photoPreviewElement = formElement.querySelector(
-  ".img-upload__preview img",
+  '.img-upload__preview img',
 );
 const effectsPreviewsElement =
-  formElement.querySelectorAll(".effects__preview");
+  formElement.querySelectorAll('.effects__preview');
 
 // Добавляем функцию валидации
 const pristine = new Pristine(formElement, {
-  classTo: "img-upload__field-wrapper",
-  errorTextParent: "img-upload__field-wrapper",
-  errorTextClass: "img-upload__field-wrapper__error",
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper__error',
 });
 
 // Функция открытия окна
 const showModal = () => {
-  overlayElement.classList.remove("hidden");
-  bodyElement.classList.add("modal-open");
-  document.addEventListener("keydown", onDocumentKeyDown);
+  overlayElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeyDown);
 };
 
 // Функция закрытия окна
@@ -44,9 +44,9 @@ const hideModal = () => {
   formElement.reset();
   resetScale();
   pristine.reset();
-  overlayElement.classList.add("hidden");
-  bodyElement.classList.remove("modal-open");
-  document.removeEventListener("keydown", onDocumentKeyDown);
+  overlayElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeyDown);
 };
 
 // Функция фокусировки на тегах и комментариях
@@ -64,7 +64,7 @@ const isValidType = (file) => {
 const normalizeTags = (tagString) =>
   tagString
     .trim()
-    .split(" ")
+    .split(' ')
     .filter((tag) => Boolean(tag.length));
 
 const hasValidTags = (value) =>
@@ -80,7 +80,7 @@ const hasUniqueTags = (value) => {
 
 // Функция обработчик
 function onDocumentKeyDown(evt) {
-  if (evt.key === "Escape" && !isTextFieldFocused()) {
+  if (evt.key === 'Escape' && !isTextFieldFocused()) {
     evt.preventDefault();
     hideModal();
   }
@@ -131,5 +131,5 @@ pristine.addValidator(
   true,
 );
 
-fileFieldElement.addEventListener("change", onFileInputChange);
-cancelButtonElement.addEventListener("click", onCancelButtonClick);
+fileFieldElement.addEventListener('change', onFileInputChange);
+cancelButtonElement.addEventListener('click', onCancelButtonClick);
