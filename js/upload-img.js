@@ -3,7 +3,7 @@ import { resetScale } from './scale';
 const MAX_HASHTAG = 5; // Допустимое количество хэштегов
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i; // Валидные символы
 
-const FILE_TYPES = ["jpg", "png", "jpeg"]; // Поддерживаемые форматы файлов
+const FILE_TYPES = ['jpg', 'png', 'jpeg']; // Поддерживаемые форматы файлов
 
 // Добавляем объект для вывода сообщений об ошибках при валидации
 const ErrorText = {
