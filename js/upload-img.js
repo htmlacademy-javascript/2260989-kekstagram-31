@@ -1,4 +1,4 @@
-import { resetScale } from './scale';
+import { resetScale } from './scale.js';
 
 const MAX_HASHTAG = 5; // Допустимое количество хэштегов
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i; // Валидные символы
