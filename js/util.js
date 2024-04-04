@@ -1,4 +1,4 @@
-const REMOVE_MESSAGE_TIMEOUT = 5000;
+const REMOVE_MESSAGE_TIMEOUT = 500;
 
 const errorMessageTemplateElement = document.querySelector('#data-error').content.querySelector('.data-error');
 

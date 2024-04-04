@@ -127,7 +127,7 @@ const onFileInputChange = () => {
 
 // Проверка корректности введенной информации перед отправкой
 async function sendForm(formEl) {
-  if (! pristine.validate()) {
+  if (!pristine.validate()) {
     return;
   }
 
