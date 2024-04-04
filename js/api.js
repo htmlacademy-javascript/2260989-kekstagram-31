@@ -27,12 +27,12 @@ async function request(url, method = HttpMethod.GET, body = null) {
 }
 
 //функция получения картинки из сервера
-async function loadPicture() {
+async function getData() {
   return request(`${SERVER_URL}${ServerRoute.GET_DATA}`);
 }
 
 //функция отправки на сервер картинки
-async function sendPicture(pictureData) {
+async function postData(pictureData) {
   return request(
     `${SERVER_URL}${ServerRoute.SEND_DATA}`,
     HttpMethod.POST,
@@ -40,4 +40,4 @@ async function sendPicture(pictureData) {
   );
 }
 
-export { loadPicture, sendPicture };
+export { getData, postData };

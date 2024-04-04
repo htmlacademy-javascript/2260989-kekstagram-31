@@ -1,6 +1,6 @@
 import { resetScale } from './scale.js';
 import { onEffectChange, resetEffects } from './effects.js';
-import { sendPicture } from './api.js';
+import { postData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const MAX_HASHTAG = 5; // Допустимое количество хэштегов
@@ -133,7 +133,7 @@ async function sendForm(formEl) {
 
   try {
     toggleSubmitButton(true);
-    await sendPicture(new FormData(formEl));
+    await postData(new FormData(formEl));
     hideModal();
     showSuccessMessage();
   } catch {
