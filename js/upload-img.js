@@ -1,4 +1,7 @@
 import { resetScale } from './scale.js';
+import { onEffectChange, resetEffects } from './effects.js';
+import { sendPicture } from './api.js';
+import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const MAX_HASHTAG = 5; // Допустимое количество хэштегов
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i; // Валидные символы
@@ -12,6 +15,11 @@ const ErrorText = {
   INVALID_PATTERN: 'Неправильный хэштег!',
 };
 
+const SubmitButtonCaption = {
+  SUBMITTING: 'ОТПРАВЛЯЮ...',
+  IDLE: 'ОПУБЛИКОВАТЬ',
+};
+
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const overlayElement = formElement.querySelector('.img-upload__overlay');
@@ -19,11 +27,18 @@ const cancelButtonElement = formElement.querySelector('.img-upload__cancel');
 const fileFieldElement = formElement.querySelector('.img-upload__input');
 const hashtagFieldElement = formElement.querySelector('.text__hashtags');
 const commentFieldElement = formElement.querySelector('.text__description');
-const photoPreviewElement = formElement.querySelector(
-  '.img-upload__preview img',
-);
-const effectsPreviewsElement =
-  formElement.querySelectorAll('.effects__preview');
+const effectsList = formElement.querySelector('.effects__list');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
+const photoPreviewElement = formElement.querySelector('.img-upload__preview img');
+const effectsPreviewsElement = formElement.querySelectorAll('.effects__preview');
+
+// Блокировка кнопки при отправке данных
+const toggleSubmitButton = (isDisabled) => {
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = isDisabled
+    ? SubmitButtonCaption.SUBMITTING
+    : SubmitButtonCaption.IDLE;
+};
 
 // Добавляем функцию валидации
 const pristine = new Pristine(formElement, {
@@ -43,6 +58,7 @@ const showModal = () => {
 const hideModal = () => {
   formElement.reset();
   resetScale();
+  resetEffects();
   pristine.reset();
   overlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
@@ -78,9 +94,14 @@ const hasUniqueTags = (value) => {
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
+//определяем есть или нет окно об ошибке
+function isErrorMessageExists() {
+  return Boolean(document.querySelector('.error'));
+}
+
 // Функция обработчик
 function onDocumentKeyDown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
+  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideModal();
   }
@@ -102,6 +123,29 @@ const onFileInputChange = () => {
     });
   }
   showModal();
+};
+
+// Проверка корректности введенной информации перед отправкой
+async function sendForm(formEl) {
+  if (! pristine.validate()) {
+    return;
+  }
+
+  try {
+    toggleSubmitButton(true);
+    await sendPicture(new FormData(formEl));
+    hideModal();
+    showSuccessMessage();
+  } catch {
+    showErrorMessage();
+    toggleSubmitButton(false);
+  }
+}
+
+//функция добавления валидации комментариев
+const onFormSubmit = async (evt) => {
+  evt.preventDefault();
+  sendForm(evt.target);
 };
 
 // Добавляем валидацию на хэш-теги
@@ -131,5 +175,7 @@ pristine.addValidator(
   true,
 );
 
+effectsList.addEventListener('change', onEffectChange);
 fileFieldElement.addEventListener('change', onFileInputChange);
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
+formElement.addEventListener('submit', onFormSubmit);
