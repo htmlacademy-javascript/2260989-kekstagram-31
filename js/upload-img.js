@@ -1,4 +1,4 @@
-import { resetScale } from './scale';
+import { resetScale } from './scale.js';
 import { onEffectChange, resetEffects } from './effects.js';
 import { sendPicture } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
