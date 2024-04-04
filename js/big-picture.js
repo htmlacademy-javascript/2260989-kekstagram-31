@@ -4,12 +4,8 @@ const bigPicture = document.querySelector('.big-picture');
 const comments = bigPicture.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
 const socialCommentsCount = document.querySelector('.social__comment-count');
-const socialCommentShowCount = bigPicture.querySelector(
-  '.social__comment-shown-count',
-);
-const socialCommentTotalCount = bigPicture.querySelector(
-  '.social__comment-total-count',
-);
+const socialCommentShowCount = bigPicture.querySelector('.social__comment-shown-count');
+const socialCommentTotalCount = bigPicture.querySelector('.social__comment-total-count');
 const socialComment = bigPicture.querySelector('.social__comment');
 const buttonClose = bigPicture.querySelector('.big-picture__cancel');
 

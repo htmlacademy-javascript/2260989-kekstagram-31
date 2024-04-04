@@ -1,4 +1,4 @@
-const REMOVE_MESSAGE_TIMEOUT = 5000;
+const REMOVE_MESSAGE_TIMEOUT = 500;
 
 const errorMessageTemplateElement = document.querySelector('#data-error').content.querySelector('.data-error');
 
@@ -12,7 +12,7 @@ function showErrorMessage() {
 }
 
 // Функция пропуска откликов
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = REMOVE_MESSAGE_TIMEOUT) {
   let timeoutId;
 
   return (...rest) => {

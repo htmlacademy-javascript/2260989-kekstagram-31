@@ -11,7 +11,7 @@ const biggerButtonElement = modalElement.querySelector(
   '.scale__control--bigger',
 );
 const scaleInputElement = modalElement.querySelector('.scale__control--value');
-const imageElement = modalElement.querySelector('.img-upload__preview');
+const imageElement = modalElement.querySelector('.img-upload__preview img');
 
 const scaleImage = (value) => {
   imageElement.style.transform = `scale(${value / 100})`;

@@ -1,11 +1,11 @@
 import { resetScale } from './scale.js';
 import { onEffectChange, resetEffects } from './effects.js';
-import { sendPicture } from './api.js';
+import { postData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
 
 const MAX_HASHTAG = 5; // Допустимое количество хэштегов
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i; // Валидные символы
-
+const MAX_DESCRIPTION_LENGTH = 140;
 const FILE_TYPES = ['jpg', 'png', 'jpeg']; // Поддерживаемые форматы файлов
 
 // Добавляем объект для вывода сообщений об ошибках при валидации
@@ -13,11 +13,12 @@ const ErrorText = {
   INVALID_COUNT: `Допустимо максимум ${MAX_HASHTAG} хэштегов`,
   NOT_UNIQUE: 'Хэштеги должны быть уникальными!',
   INVALID_PATTERN: 'Неправильный хэштег!',
+  INVALID_DESCRIPTION: 'Текст комментария не должен превышать 140 символов!'
 };
 
 const SubmitButtonCaption = {
-  SUBMITTING: 'ОТПРАВЛЯЮ...',
-  IDLE: 'ОПУБЛИКОВАТЬ',
+  SUBMITTING: 'Отправляю...',
+  IDLE: 'Опубликовать',
 };
 
 const bodyElement = document.querySelector('body');
@@ -60,6 +61,7 @@ const hideModal = () => {
   resetScale();
   resetEffects();
   pristine.reset();
+  toggleSubmitButton(false);
   overlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeyDown);
@@ -87,6 +89,8 @@ const hasValidTags = (value) =>
   normalizeTags(value).every((tag) => VALID_SYMBOLS.test(tag));
 
 const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAG;
+
+const hasValidDescription = () => commentFieldElement.value.length <= MAX_DESCRIPTION_LENGTH;
 
 // Приведение тегов к маленькому регистру букв
 const hasUniqueTags = (value) => {
@@ -126,14 +130,14 @@ const onFileInputChange = () => {
 };
 
 // Проверка корректности введенной информации перед отправкой
-async function sendForm(formEl) {
-  if (! pristine.validate()) {
+async function sendForm() {
+  if (!pristine.validate()) {
     return;
   }
 
   try {
     toggleSubmitButton(true);
-    await sendPicture(new FormData(formEl));
+    await postData(new FormData(formElement));
     hideModal();
     showSuccessMessage();
   } catch {
@@ -171,6 +175,15 @@ pristine.addValidator(
   hashtagFieldElement,
   hasValidTags,
   ErrorText.INVALID_PATTERN,
+  1,
+  true,
+);
+
+// Добавляем валидацию на комментарий
+pristine.addValidator(
+  commentFieldElement,
+  hasValidDescription,
+  ErrorText.INVALID_DESCRIPTION,
   1,
   true,
 );
