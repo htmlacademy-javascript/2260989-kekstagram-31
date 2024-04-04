@@ -12,7 +12,7 @@ function showErrorMessage() {
 }
 
 // Функция пропуска откликов
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = REMOVE_MESSAGE_TIMEOUT) {
   let timeoutId;
 
   return (...rest) => {
