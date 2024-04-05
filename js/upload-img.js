@@ -117,6 +117,14 @@ const onFileInputChange = () => {
   showModal();
 };
 
+const onButtonLock = () => {
+  if (pristine.validate()) {
+    submitButtonElement.removeAttribute('disabled');
+  } else {
+    submitButtonElement.setAttribute('disabled', 'disabled');
+  }
+};
+
 async function sendForm() {
   if (!pristine.validate()) {
     return;
@@ -170,6 +178,7 @@ pristine.addValidator(
   true,
 );
 
+formElement.addEventListener('input', onButtonLock);
 effectsList.addEventListener('change', onEffectChange);
 fileFieldElement.addEventListener('change', onFileInputChange);
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
