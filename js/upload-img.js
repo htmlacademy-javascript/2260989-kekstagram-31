@@ -32,6 +32,7 @@ const effectsList = formElement.querySelector('.effects__list');
 const submitButtonElement = formElement.querySelector('.img-upload__submit');
 const photoPreviewElement = formElement.querySelector('.img-upload__preview img');
 const effectsPreviewsElement = formElement.querySelectorAll('.effects__preview');
+const inputElement = formElement.querySelector('.img-upload__text');
 
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
@@ -178,7 +179,7 @@ const onButtonLock = () => {
   }
 };
 
-formElement.addEventListener('input', onButtonLock);
+inputElement.addEventListener('input', onButtonLock);
 effectsList.addEventListener('change', onEffectChange);
 fileFieldElement.addEventListener('change', onFileInputChange);
 cancelButtonElement.addEventListener('click', onCancelButtonClick);
