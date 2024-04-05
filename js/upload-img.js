@@ -2,13 +2,13 @@ import { resetScale } from './scale.js';
 import { onEffectChange, resetEffects } from './effects.js';
 import { postData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
+import { isEscKeyDown } from './util.js';
 
-const MAX_HASHTAG = 5; // Допустимое количество хэштегов
-const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i; // Валидные символы
+const MAX_HASHTAG = 5;
+const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_DESCRIPTION_LENGTH = 140;
-const FILE_TYPES = ['jpg', 'png', 'jpeg']; // Поддерживаемые форматы файлов
+const FILE_TYPES = ['jpg', 'png', 'jpeg', 'png', 'jpe'];
 
-// Добавляем объект для вывода сообщений об ошибках при валидации
 const ErrorText = {
   INVALID_COUNT: `Допустимо максимум ${MAX_HASHTAG} хэштегов`,
   NOT_UNIQUE: 'Хэштеги должны быть уникальными!',
@@ -33,7 +33,6 @@ const submitButtonElement = formElement.querySelector('.img-upload__submit');
 const photoPreviewElement = formElement.querySelector('.img-upload__preview img');
 const effectsPreviewsElement = formElement.querySelectorAll('.effects__preview');
 
-// Блокировка кнопки при отправке данных
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
   submitButtonElement.textContent = isDisabled
@@ -41,21 +40,18 @@ const toggleSubmitButton = (isDisabled) => {
     : SubmitButtonCaption.IDLE;
 };
 
-// Добавляем функцию валидации
 const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper__error',
 });
 
-// Функция открытия окна
 const showModal = () => {
   overlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
 };
 
-// Функция закрытия окна
 const hideModal = () => {
   formElement.reset();
   resetScale();
@@ -67,18 +63,15 @@ const hideModal = () => {
   document.removeEventListener('keydown', onDocumentKeyDown);
 };
 
-// Функция фокусировки на тегах и комментариях
 const isTextFieldFocused = () =>
   document.activeElement === hashtagFieldElement ||
   document.activeElement === commentFieldElement;
 
-// Функция проверки расширения загруженного фото
 const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
   return FILE_TYPES.some((it) => fileName.endsWith(it));
 };
 
-// Функция для нормализации хэштегов
 const normalizeTags = (tagString) =>
   tagString
     .trim()
@@ -92,31 +85,26 @@ const hasValidCount = (value) => normalizeTags(value).length <= MAX_HASHTAG;
 
 const hasValidDescription = () => commentFieldElement.value.length <= MAX_DESCRIPTION_LENGTH;
 
-// Приведение тегов к маленькому регистру букв
 const hasUniqueTags = (value) => {
   const lowerCaseTags = normalizeTags(value).map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-//определяем есть или нет окно об ошибке
 function isErrorMessageExists() {
   return Boolean(document.querySelector('.error'));
 }
 
-// Функция обработчик
 function onDocumentKeyDown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageExists()) {
+  if (isEscKeyDown(evt) && !isTextFieldFocused() && !isErrorMessageExists()) {
     evt.preventDefault();
     hideModal();
   }
 }
 
-// Функция закрытия картинки по крестику
 const onCancelButtonClick = () => {
   hideModal();
 };
 
-// Функция добавления фото
 const onFileInputChange = () => {
   const file = fileFieldElement.files[0];
 
@@ -129,7 +117,6 @@ const onFileInputChange = () => {
   showModal();
 };
 
-// Проверка корректности введенной информации перед отправкой
 async function sendForm() {
   if (!pristine.validate()) {
     return;
@@ -146,13 +133,11 @@ async function sendForm() {
   }
 }
 
-//функция добавления валидации комментариев
 const onFormSubmit = async (evt) => {
   evt.preventDefault();
   sendForm(evt.target);
 };
 
-// Добавляем валидацию на хэш-теги
 pristine.addValidator(
   hashtagFieldElement,
   hasValidCount,
@@ -161,7 +146,6 @@ pristine.addValidator(
   true,
 );
 
-// Добавляем валидацию на хэш-теги
 pristine.addValidator(
   hashtagFieldElement,
   hasUniqueTags,
@@ -170,7 +154,6 @@ pristine.addValidator(
   true,
 );
 
-// Добавляем валидацию на хэш-теги
 pristine.addValidator(
   hashtagFieldElement,
   hasValidTags,
@@ -179,7 +162,6 @@ pristine.addValidator(
   true,
 );
 
-// Добавляем валидацию на комментарий
 pristine.addValidator(
   commentFieldElement,
   hasValidDescription,

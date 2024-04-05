@@ -1,3 +1,5 @@
+import { isEscKeyDown } from './util.js';
+
 const successMessageElement = document.querySelector('#success').content.querySelector('.success');
 const errorMessageElement = document.querySelector('#error').content.querySelector('.error');
 
@@ -15,7 +17,7 @@ function onCloseButtonClick() {
 }
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
+  if (isEscKeyDown(evt)) {
     evt.preventDefault();
     hideMessage();
   }
@@ -31,7 +33,7 @@ function onBodyClick(evt) {
 
 function showMessage(element, buttonClass) {
   document.body.append(element);
-  document.body.addEventListener('click', onBodyClick); //подписчик на закрытие окна ошибки при нажатии мышки
+  document.body.addEventListener('click', onBodyClick);
   document.addEventListener('keydown', onDocumentKeydown);
   element
     .querySelector(buttonClass)
