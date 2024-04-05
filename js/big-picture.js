@@ -1,5 +1,7 @@
 import { isEscKeyDown } from './util.js';
 
+const NUMBER_COMMENTS_DISPLAED = 5;
+
 const bigPicture = document.querySelector('.big-picture');
 const comments = bigPicture.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
@@ -9,8 +11,7 @@ const socialCommentTotalCount = bigPicture.querySelector('.social__comment-total
 const socialComment = bigPicture.querySelector('.social__comment');
 const buttonClose = bigPicture.querySelector('.big-picture__cancel');
 
-const NUMBER_COMMENTS_DISPLAED = 5; // Допустимое количество показанных комментариев
-let visibleComments = []; // Массив для заполнения комментариями
+let visibleComments = [];
 let commentsShow = NUMBER_COMMENTS_DISPLAED;
 
 const avatarProperties = {
@@ -33,7 +34,6 @@ const createComment = (comment, template) => {
   return newComment;
 };
 
-// Функция показа комментариев
 const showComments = () => {
   const addedComments = visibleComments.slice(0, commentsShow);
   comments.innerHTML = '';
@@ -60,7 +60,6 @@ const onCommentsLoaderClick = () => {
   showComments();
 };
 
-// Действия при закрытии фото
 const onPictureClose = () => {
   visibleComments = [];
   commentsShow = NUMBER_COMMENTS_DISPLAED;
@@ -69,7 +68,6 @@ const onPictureClose = () => {
   commentsLoader.removeEventListener('keydown', onCommentsLoaderClick);
 };
 
-// Действия при нажатии кнопки Esc
 function onEscKeyDown(evt) {
   if (isEscKeyDown(evt)) {
     evt.preventDefault();
@@ -77,7 +75,6 @@ function onEscKeyDown(evt) {
   }
 }
 
-//Функция открытия большого фото
 const onPictureOpen = (photo) => {
 
   bigPicture.classList.remove('hidden');
