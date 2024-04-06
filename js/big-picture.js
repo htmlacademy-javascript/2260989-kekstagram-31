@@ -1,6 +1,11 @@
 import { isEscKeyDown } from './util.js';
 
 const NUMBER_COMMENTS_DISPLAED = 5;
+const avatarProperties = {
+  HEIGHT: 35,
+  WIDTH: 35,
+};
+
 
 const bigPicture = document.querySelector('.big-picture');
 const comments = bigPicture.querySelector('.social__comments');
@@ -13,11 +18,6 @@ const buttonClose = bigPicture.querySelector('.big-picture__cancel');
 
 let visibleComments = [];
 let commentsShow = NUMBER_COMMENTS_DISPLAED;
-
-const avatarProperties = {
-  HEIGHT: 35,
-  WIDTH: 35,
-};
 
 const createComment = (comment, template) => {
   const newComment = template.cloneNode(true);
@@ -60,7 +60,7 @@ const onCommentsLoaderClick = () => {
   showComments();
 };
 
-const onPictureClose = () => {
+const onButtonClose = () => {
   visibleComments = [];
   commentsShow = NUMBER_COMMENTS_DISPLAED;
   bigPicture.classList.add('hidden');
@@ -71,7 +71,7 @@ const onPictureClose = () => {
 function onEscKeyDown(evt) {
   if (isEscKeyDown(evt)) {
     evt.preventDefault();
-    onPictureClose();
+    onButtonClose();
   }
 }
 
@@ -90,7 +90,7 @@ const onPictureOpen = (photo) => {
 
   document.addEventListener('keydown', onEscKeyDown);
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
-  buttonClose.addEventListener('click', onPictureClose);
+  buttonClose.addEventListener('click', onButtonClose);
 
 };
 

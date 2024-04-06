@@ -1,10 +1,4 @@
-const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
-const slider = imgUploadWrapper.querySelector('.effect-level__slider');
-const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
-const effectLevelValue = imgUploadWrapper.querySelector('.effect-level__value');
-const img = imgUploadWrapper.querySelector('.img-upload__preview img');
-
-const effects = {
+const EFFECT_LISTS = {
   none: { min: 0, max: 1, start: 1, step: 0, styleFilter: 'none', unit: '' },
   chrome: {
     min: 0,
@@ -48,6 +42,12 @@ const effects = {
   },
 };
 
+const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
+const slider = imgUploadWrapper.querySelector('.effect-level__slider');
+const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
+const effectLevelValue = imgUploadWrapper.querySelector('.effect-level__value');
+const img = imgUploadWrapper.querySelector('.img-upload__preview img');
+
 effectLevel.classList.add('hidden');
 
 noUiSlider.create(slider, {
@@ -85,7 +85,7 @@ const onEffectChange = (evt) => {
   } else {
     effectLevel.classList.remove('hidden');
   }
-  setEffect(effects[effect]);
+  setEffect(EFFECT_LISTS[effect]);
 };
 
 const resetEffects = () => {
