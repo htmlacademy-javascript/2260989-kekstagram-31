@@ -22,7 +22,7 @@ const filterHandles = {
     const randomIndexLists = [];
     const max = Math.min(MAX_RANDOM_FILTER, data.length);
     while (randomIndexLists.length < max) {
-      const index = getRandomNumber(1, data.length);
+      const index = getRandomNumber(0, data.length);
       if (!randomIndexLists.includes(index)){
         randomIndexLists.push(index);
       }
