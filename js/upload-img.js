@@ -32,7 +32,7 @@ const effectsList = formElement.querySelector('.effects__list');
 const submitButtonElement = formElement.querySelector('.img-upload__submit');
 const photoPreviewElement = formElement.querySelector('.img-upload__preview img');
 const effectsPreviewsElement = formElement.querySelectorAll('.effects__preview');
-const inputElement = formElement.querySelector('.img-upload__text');
+const uploadTextElement = formElement.querySelector('.img-upload__text');
 
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
@@ -171,7 +171,7 @@ pristine.addValidator(
   true,
 );
 
-const onButtonLock = () => {
+const onUploadTextLock = () => {
   if (pristine.validate()) {
     submitButtonElement.removeAttribute('disabled');
   } else {
@@ -179,7 +179,7 @@ const onButtonLock = () => {
   }
 };
 
-inputElement.addEventListener('input', onButtonLock);
+uploadTextElement.addEventListener('input', onUploadTextLock);
 effectsList.addEventListener('change', onEffectChange);
 fileFieldElement.addEventListener('change', onFileInputChange);
 cancelButtonElement.addEventListener('click', onCancelButtonClick);

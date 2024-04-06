@@ -3,6 +3,12 @@ import { debounce } from './util.js';
 import { getRandomNumber } from './util.js';
 
 const MAX_RANDOM_FILTER = 10;
+const FilterEnum = {
+  DEFAULT: 'default',
+  RANDOM: 'random',
+  DISCUSSED: 'discussed'
+};
+
 
 const filterElement = document.querySelector('.img-filters');
 const filterFormElement = document.querySelector('.img-filters__form');
@@ -10,25 +16,18 @@ const defaultButtonElement = filterFormElement.querySelector('#filter-default');
 const randomButtonElement = filterFormElement.querySelector('#filter-random');
 const discussedButtonElement = filterFormElement.querySelector('#filter-discussed');
 
-
-const FilterEnum = {
-  DEFAULT: 'default',
-  RANDOM: 'random',
-  DISCUSSED: 'discussed'
-};
-
 const filterHandles = {
   [FilterEnum.DEFAULT]: (data) => data,
   [FilterEnum.RANDOM]: (data) => {
-    const randomIndexList = [];
+    const randomIndexLists = [];
     const max = Math.min(MAX_RANDOM_FILTER, data.length);
-    while (randomIndexList.length < max) {
+    while (randomIndexLists.length < max) {
       const index = getRandomNumber(1, data.length);
-      if (!randomIndexList.includes(index)){
-        randomIndexList.push(index);
+      if (!randomIndexLists.includes(index)){
+        randomIndexLists.push(index);
       }
     }
-    return randomIndexList.map((index) => data[index]);
+    return randomIndexLists.map((index) => data[index]);
   },
   [FilterEnum.DISCUSSED]: (data) => [...data].sort((item1, item2) => item2.comments.length - item1.comments.length),
 };
