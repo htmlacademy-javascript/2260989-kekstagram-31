@@ -1,10 +1,45 @@
 const EffectLists = {
-  NONE: { min: 0, max: 1, start: 1, step: 0, styleFilter: 'none', unit: '' },
-  CHROME: { min: 0, max: 1, start: 1, step: 0.1, styleFilter: 'grayscale', unit: '', },
-  SEPIA: { min: 0, max: 1, start: 1, step: 0.1, styleFilter: 'sepia', unit: '', },
-  MARVIN: { min: 0, max: 100, start: 100, step: 1, styleFilter: 'invert', unit: '%', },
-  PHOBOS: { min: 0, max: 3, start: 3, step: 0.1, styleFilter: 'blur', unit: 'px', },
-  HEAT: { min: 1, max: 3, start: 3, step: 0.1, styleFilter: 'brightness', unit: '', },
+  none: { min: 0, max: 1, start: 1, step: 0, styleFilter: 'none', unit: '' },
+  chrome: {
+    min: 0,
+    max: 1,
+    start: 1,
+    step: 0.1,
+    styleFilter: 'grayscale',
+    unit: '',
+  },
+  sepia: {
+    min: 0,
+    max: 1,
+    start: 1,
+    step: 0.1,
+    styleFilter: 'sepia',
+    unit: '',
+  },
+  marvin: {
+    min: 0,
+    max: 100,
+    start: 100,
+    step: 1,
+    styleFilter: 'invert',
+    unit: '%',
+  },
+  phobos: {
+    min: 0,
+    max: 3,
+    start: 3,
+    step: 0.1,
+    styleFilter: 'blur',
+    unit: 'px',
+  },
+  heat: {
+    min: 1,
+    max: 3,
+    start: 3,
+    step: 0.1,
+    styleFilter: 'brightness',
+    unit: '',
+  },
 };
 
 const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
