@@ -1,4 +1,4 @@
-const EffectLists = {
+const effectLists = {
   none: { min: 0, max: 1, start: 1, step: 0, styleFilter: 'none', unit: '' },
   chrome: {
     min: 0,
@@ -85,7 +85,7 @@ const onEffectChange = (evt) => {
   } else {
     effectLevel.classList.remove('hidden');
   }
-  setEffect(EffectLists[effect]);
+  setEffect(effectLists[effect]);
 };
 
 const resetEffects = () => {
